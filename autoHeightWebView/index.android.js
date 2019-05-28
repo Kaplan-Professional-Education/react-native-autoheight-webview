@@ -193,7 +193,7 @@ export default class AutoHeightWebView extends PureComponent {
     const url = event.nativeEvent.url;
     if (url && FILE_EXTENSIONS.find((extension) => url.search(extension) > -1)) {
       this.stopLoading();
-      Linking.openURL(event.nativeEvent.url).catch((err) => {
+      Linking.openURL(event.nativeEvent.url).catch(() => {
         Alert.alert('Notice', 'There was a problem opening the URL');
       });
     } else {
