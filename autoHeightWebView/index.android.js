@@ -196,6 +196,7 @@ export default class AutoHeightWebView extends PureComponent {
       Linking.openURL(event.nativeEvent.url).catch(() => {
         Alert.alert('Notice', 'There was a problem opening the URL');
       });
+      this.goBack(); // Hack for some Android inconsistencies
     } else {
       const { onLoadStart } = this.props;
       onLoadStart && onLoadStart(event);
@@ -223,7 +224,15 @@ export default class AutoHeightWebView extends PureComponent {
       UIManager.RCTAutoHeightWebView.Commands.stopLoading,
       null
     );
-  }
+  };
+
+  goBack() {
+    UIManager.dispatchViewManagerCommand(
+      findNodeHandle(this.webView),
+      UIManager.RCTAutoHeightWebView.Commands.goBack,
+      null
+    );
+  };
 
   render() {
     const { height, script, isChangingSource, heightOffset } = this.state;
